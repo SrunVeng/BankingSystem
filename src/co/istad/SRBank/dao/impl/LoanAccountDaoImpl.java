@@ -3,7 +3,6 @@ package co.istad.SRBank.dao.impl;
 import co.istad.SRBank.dao.LoanAccountDao;
 import co.istad.SRBank.domain.LoanAccount;
 import co.istad.SRBank.domain.SavingAccount;
-import jdk.internal.icu.text.UnicodeSet;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,14 +25,15 @@ public class LoanAccountDaoImpl implements LoanAccountDao {
 
             while (result.next()) {
                 LoanAccount loanAccount = new LoanAccount();
-                loanAccount.setLoanAccNum(result.getInt("saving_account_number"));
+                loanAccount.setLoanAccNum(result.getInt("loan_account_number"));
                 //savingAccount.setCifNumber(result.getInt("cif_number"));
                 loanAccount.setInterest(result.getBigDecimal("interest"));
-                loanAccount.setAmount(result.getBigDecimal("balance"));
+                loanAccount.setAmount(result.getBigDecimal("amount"));
                 //    savingAccount.setStaffId(result.getInt("staff_id"));
+                loanAccount.setOutStanding(result.getBigDecimal("outstanding"));
+                loanAccount.setTerm(result.getInt("term"));
                 loanAccount.setCreateOnl(result.getDate("created_on").toLocalDate());
                 LoanAccounts.add(loanAccount);
-
             }
             return LoanAccounts;
 

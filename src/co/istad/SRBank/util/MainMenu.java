@@ -1,20 +1,23 @@
 package co.istad.SRBank.util;
 
+import co.istad.SRBank.dao.LoanAccountDao;
 import co.istad.SRBank.dao.SavingAccountDao;
+import co.istad.SRBank.dao.impl.LoanAccountDaoImpl;
 import co.istad.SRBank.dao.impl.SavingAccountDaoImpl;
+import co.istad.SRBank.domain.LoanAccount;
 import co.istad.SRBank.domain.SavingAccount;
 
 import java.util.List;
 
 public class MainMenu {
-
+        // Need to Help
         static SavingAccountDao savingAccountDao = new SavingAccountDaoImpl();
+        static LoanAccountDao loanAccountDao = new LoanAccountDaoImpl();
 
     private static void CifCreationMenu() {
 
 
     }
-
 
     private static void accountCreationMenu() {
         int OptionChose;
@@ -34,8 +37,6 @@ public class MainMenu {
         }
 
     }
-
-
 
 
     public static void menu() {
@@ -61,13 +62,18 @@ public class MainMenu {
             case 3:
             {
                 List<SavingAccount> savingAccounts = savingAccountDao.findAllSaving();
+                List<LoanAccount> loanAccounts = loanAccountDao.findAllLoan();
                 System.out.println("Accounts:");
                 System.out.println("========================================================================================================");
                 for (SavingAccount savingAccount : savingAccounts) {
                     System.out.println(savingAccount);
                 }
-
+                for (LoanAccount loanAccount : loanAccounts) {
+                    System.out.println(loanAccount);
+                }
             }
+            System.out.println("========================================================================================================");
+            ScannerUtil.PressEnterToMainMenu();
                 break;
             case 4:
                 System.out.println("view staff info");

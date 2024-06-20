@@ -80,4 +80,17 @@ public class LoanAccount {
     public void setCifNumber(CustomerCif cifNumber) {
         this.cifNumber = cifNumber;
     }
+
+    @Override
+    public String toString() {
+        return  "LoanAccountNumber" + loanAccNum +
+                ", Interest=" + interest +
+                ", Amount=" + amount +
+                ", OutStanding=" + outStanding +
+                ", Term=" + term +
+                ", CreateOnl=" + createOnl +
+                ", StaffId=" + staffId +
+                ", CIFNumber=" + cifNumber
+                ;
+    }
 }

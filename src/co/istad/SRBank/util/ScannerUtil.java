@@ -18,8 +18,6 @@ public class ScannerUtil {
             }
         }
     }
-
-
     public static String scanText() {
         Scanner scanner = new Scanner(System.in);
         String inputText;
@@ -34,4 +32,13 @@ public class ScannerUtil {
         }
 
     }
+
+    public static void PressEnterToMainMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Press Enter to return to MainMenu");
+        scanner.nextLine();
+        MainMenu.menu();
+
+    }
+
 }
