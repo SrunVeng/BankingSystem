@@ -63,4 +63,16 @@ public class SavingAccount {
         this.cifNumber = cifNumber;
     }
 
+    @Override
+    public String toString() {
+        return
+                "AccountNumber=" + savingAccNum +
+                ", Interest=" + interest +
+                ", Balance=" + balance +
+                ", CreatedDate=" + createOnl +
+                ", Staffid=" + staffId +
+                ", CIFnumber=" + cifNumber
+                ;
+    }
+
 }

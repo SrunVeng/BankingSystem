@@ -9,6 +9,6 @@ public interface SavingAccountDao {
 
     // Find all SavingAccount
     // return type list of savingAccount
-    List<SavingAccount> findAll();
+    List<SavingAccount> findAllSaving();
 
 }

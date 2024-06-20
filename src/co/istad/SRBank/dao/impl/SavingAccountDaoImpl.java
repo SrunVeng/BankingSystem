@@ -22,7 +22,7 @@ public class SavingAccountDaoImpl implements SavingAccountDao {
     }
 
     @Override
-    public List<SavingAccount> findAll() {
+    public  List<SavingAccount> findAllSaving() {
 
         String sql = "SELECT * FROM saving_account";
         try {
@@ -30,15 +30,16 @@ public class SavingAccountDaoImpl implements SavingAccountDao {
             ResultSet result = statement.executeQuery();
             List<SavingAccount> savingAccounts = new ArrayList<>();
 
-            while (result.next()){
+            while (result.next()) {
                 SavingAccount savingAccount = new SavingAccount();
 
-           savingAccount.setSavingAccNum(result.getInt("saving_account_number"));
-           //savingAccount.setCifNumber(result.getInt("cif_number"));
+                savingAccount.setSavingAccNum(result.getInt("saving_account_number"));
+                //savingAccount.setCifNumber(result.getInt("cif_number"));
                 savingAccount.setInterest(result.getBigDecimal("interest"));
                 savingAccount.setBalance(result.getBigDecimal("balance"));
-            //    savingAccount.setStaffId(result.getInt("staff_id"));
+                //    savingAccount.setStaffId(result.getInt("staff_id"));
                 savingAccount.setCreateOnl(result.getDate("created_on").toLocalDate());
+                savingAccounts.add(savingAccount);
 
             }
             return savingAccounts;

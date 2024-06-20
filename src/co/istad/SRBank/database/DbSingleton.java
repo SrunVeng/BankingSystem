@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DbSingleton {
     private static DbSingleton dbSingleton;
-    private static Connection connection;
+    public static Connection connection;
 
     private DbSingleton() {
         try {
