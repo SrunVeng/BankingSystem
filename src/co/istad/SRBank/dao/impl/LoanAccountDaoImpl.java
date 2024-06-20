@@ -1,9 +1,11 @@
 package co.istad.SRBank.dao.impl;
 
 import co.istad.SRBank.dao.LoanAccountDao;
+import co.istad.SRBank.database.DbSingleton;
 import co.istad.SRBank.domain.LoanAccount;
 import co.istad.SRBank.domain.SavingAccount;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +16,14 @@ import static co.istad.SRBank.database.DbSingleton.connection;
 
 public class LoanAccountDaoImpl implements LoanAccountDao {
 
+    private final DbSingleton dbSingleton;
+    private final Connection connection;
+
+    public LoanAccountDaoImpl(){
+        dbSingleton = DbSingleton.getDbSingleton();
+        connection = dbSingleton.getConnection();
+
+    }
 
     @Override
     public List<LoanAccount> findAllLoan() {

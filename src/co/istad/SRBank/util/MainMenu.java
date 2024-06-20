@@ -1,5 +1,6 @@
 package co.istad.SRBank.util;
 
+import co.istad.SRBank.MainApplication.SRBank;
 import co.istad.SRBank.dao.LoanAccountDao;
 import co.istad.SRBank.dao.SavingAccountDao;
 import co.istad.SRBank.dao.impl.LoanAccountDaoImpl;
@@ -10,9 +11,7 @@ import co.istad.SRBank.domain.SavingAccount;
 import java.util.List;
 
 public class MainMenu {
-        // Need to Help
-        static SavingAccountDao savingAccountDao = new SavingAccountDaoImpl();
-        static LoanAccountDao loanAccountDao = new LoanAccountDaoImpl();
+
 
     private static void CifCreationMenu() {
 
@@ -48,6 +47,8 @@ public class MainMenu {
                 "                                                                                                     ");
 
         System.out.println("========================================================================================================");
+        System.out.printf("#Bank Officer:%s","Not yet functional");
+        System.out.println();
         Information.mainMenuInfo();
         System.out.print("Choose Option:");
         OptionChose = ScannerUtil.scanInt();
@@ -61,6 +62,9 @@ public class MainMenu {
                 break;
             case 3:
             {
+
+                SavingAccountDao savingAccountDao = new SavingAccountDaoImpl();
+                LoanAccountDao loanAccountDao = new LoanAccountDaoImpl();
                 List<SavingAccount> savingAccounts = savingAccountDao.findAllSaving();
                 List<LoanAccount> loanAccounts = loanAccountDao.findAllLoan();
                 System.out.println("Accounts:");
@@ -73,7 +77,9 @@ public class MainMenu {
                 }
             }
             System.out.println("========================================================================================================");
-            ScannerUtil.PressEnterToMainMenu();
+            System.out.println("Press Enter to return to MainMenu");
+            ScannerUtil.PressEnter();
+            menu();
                 break;
             case 4:
                 System.out.println("view staff info");
