@@ -9,7 +9,7 @@ public class SRBank {
 
     public static void main(String[] args) {
 
-        LoginAuth loginAuth = new LoginAuth();
+        LoginAuth loginAuth = LoginAuth.getInstance();
 
         while (true) {
             System.out.print("Enter Username:");

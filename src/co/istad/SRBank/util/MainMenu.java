@@ -1,14 +1,17 @@
 package co.istad.SRBank.util;
 
-import co.istad.SRBank.MainApplication.SRBank;
 import co.istad.SRBank.dao.LoanAccountDao;
 import co.istad.SRBank.dao.SavingAccountDao;
+import co.istad.SRBank.dao.StaffDao;
 import co.istad.SRBank.dao.impl.LoanAccountDaoImpl;
 import co.istad.SRBank.dao.impl.SavingAccountDaoImpl;
+import co.istad.SRBank.dao.impl.StaffDaoImpl;
 import co.istad.SRBank.domain.LoanAccount;
 import co.istad.SRBank.domain.SavingAccount;
+import co.istad.SRBank.domain.Staff;
 
 import java.util.List;
+
 
 public class MainMenu {
 
@@ -37,7 +40,6 @@ public class MainMenu {
 
     }
 
-
     public static void menu() {
         int OptionChose;
         System.out.println("  ___ ___ ___   _   _  _ _  __    _   ___ ___ ___  _   _ _  _ _____   _____   _____ _____ ___ __  __ \n" +
@@ -47,7 +49,7 @@ public class MainMenu {
                 "                                                                                                     ");
 
         System.out.println("========================================================================================================");
-        System.out.printf("#Bank Officer:%s","Not yet functional");
+        System.out.printf("#Bank Officer:%s", LoginAuth.getInstance().getUserNameLogin());
         System.out.println();
         Information.mainMenuInfo();
         System.out.print("Choose Option:");
@@ -59,8 +61,7 @@ public class MainMenu {
             case 2:
                 accountCreationMenu();
                 break;
-            case 3:
-            {
+            case 3: {
 
                 SavingAccountDao savingAccountDao = new SavingAccountDaoImpl();
                 LoanAccountDao loanAccountDao = new LoanAccountDaoImpl();
@@ -79,30 +80,40 @@ public class MainMenu {
             System.out.println("Press Enter to return to MainMenu");
             ScannerUtil.PressEnter();
             menu();
-                break;
+            break;
             case 4:
-                System.out.println("view staff info");
+                StaffDao staffDao = new StaffDaoImpl();
+                Staff staff = staffDao.showStaffInformation();
+                System.out.println(staff);
+                System.out.print("Press Enter to return to Main menu");
+                ScannerUtil.PressEnter();
+                menu();
                 break;
             case 5:
                 CloseAccount closeAccount = new CloseAccount();
-                System.out.println("#You are have Permission to close only SavingAccount Type");
+                System.out.println("#You have permission to close only SavingAccount Type");
                 boolean deleted = false;
-             do {
-                 System.out.print(">Enter Closing SavingAccNumber:");
-                 int accountNumber = ScannerUtil.scanInt();
-                 boolean success = closeAccount.closeAccount(accountNumber);
-                 if (success) {
-                     System.out.println("AccountNumber: " + accountNumber + " has been closed successfully");
-                     System.out.println("Press Enter to return to MainMenu");
-                     ScannerUtil.PressEnter();
-                     deleted = true;
-                     menu();
-                 } else {
-                     System.out.println("Invalid AccountNumber");
-                     System.out.println("Press Enter to try again");
-                     ScannerUtil.PressEnter();
-                 }
-             }while(!deleted);
+                do {
+                    System.out.print(">Enter Closing SavingAccNumber:");
+                    int accountNumber = ScannerUtil.scanAccountNumber();
+                    if (accountNumber == 0) {
+                        menu();
+                    } else {
+                        boolean success = closeAccount.closeAccount(accountNumber);
+                        if (success) {
+                            System.out.println("AccountNumber: " + accountNumber + " has been closed successfully");
+                            System.out.println("Press Enter to return to MainMenu");
+                            ScannerUtil.PressEnter();
+                            deleted = true;
+                            menu();
+                        } else {
+                            System.out.println("Invalid AccountNumber");
+                            System.out.println("Press Enter to try again");
+                            System.out.println("Type 0 Enter to Return to MainMenu");
+                            ScannerUtil.PressEnter();
+                        }
+                    }
+                } while (!deleted);
                 break;
             case 0:
                 System.exit(0);

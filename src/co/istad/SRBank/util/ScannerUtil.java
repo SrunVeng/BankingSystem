@@ -18,6 +18,26 @@ public class ScannerUtil {
             }
         }
     }
+
+    public static int scanAccountNumber() {
+        Scanner scanner = new Scanner(System.in);
+        int inputInt;
+        while (true) {
+            try {
+                inputInt = scanner.nextInt();
+                return inputInt;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter Number.");
+                System.out.println("Press Enter to try again.");
+                System.out.println("Type 0 Enter to Return to MainMenu");
+                PressEnter();
+                System.out.print(">Enter Closing SavingAccNumber:");
+                scanner.next();
+            }
+        }
+    }
+
+
     public static String scanText() {
         Scanner scanner = new Scanner(System.in);
         String inputText;

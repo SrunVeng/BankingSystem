@@ -22,7 +22,7 @@ public class SavingAccountDaoImpl implements SavingAccountDao {
     }
 
     @Override
-    public  List<SavingAccount> findAllSaving() {
+    public List<SavingAccount> findAllSaving() {
         String sql = "SELECT * FROM saving_account";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
