@@ -83,7 +83,7 @@ public class LoanAccount {
 
     @Override
     public String toString() {
-        return  "LoanAccountNumber" + loanAccNum +
+        return  "Loan AccountNumber" + loanAccNum +
                 ", Interest=" + interest +
                 ", Amount=" + amount +
                 ", OutStanding=" + outStanding +

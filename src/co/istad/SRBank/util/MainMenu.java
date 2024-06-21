@@ -52,7 +52,6 @@ public class MainMenu {
         Information.mainMenuInfo();
         System.out.print("Choose Option:");
         OptionChose = ScannerUtil.scanInt();
-
         switch (OptionChose) {
             case 1:
                 System.out.println("Create CIF");
@@ -85,7 +84,25 @@ public class MainMenu {
                 System.out.println("view staff info");
                 break;
             case 5:
-                System.out.println("Close Account");
+                CloseAccount closeAccount = new CloseAccount();
+                System.out.println("#You are have Permission to close only SavingAccount Type");
+                boolean deleted = false;
+             do {
+                 System.out.print(">Enter Closing SavingAccNumber:");
+                 int accountNumber = ScannerUtil.scanInt();
+                 boolean success = closeAccount.closeAccount(accountNumber);
+                 if (success) {
+                     System.out.println("AccountNumber: " + accountNumber + " has been closed successfully");
+                     System.out.println("Press Enter to return to MainMenu");
+                     ScannerUtil.PressEnter();
+                     deleted = true;
+                     menu();
+                 } else {
+                     System.out.println("Invalid AccountNumber");
+                     System.out.println("Press Enter to try again");
+                     ScannerUtil.PressEnter();
+                 }
+             }while(!deleted);
                 break;
             case 0:
                 System.exit(0);

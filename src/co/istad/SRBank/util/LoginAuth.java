@@ -22,11 +22,7 @@ public class LoginAuth {
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
+            return resultSet.next();
         } catch (SQLException e) {
             return false;
         }

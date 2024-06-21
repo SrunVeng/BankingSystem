@@ -33,11 +33,23 @@ public class ScannerUtil {
 
     }
 
-    public static void PressEnterToMainMenu() {
+    public static String scanPassword() {
+        String inputPassword;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Press Enter to return to MainMenu");
+        while (true) {
+
+            inputPassword = scanner.nextLine();
+            if (inputPassword.matches("[a-zA-Z0-9!@#$%^&*(),.?\":{}|<>]+")) {
+                return inputPassword;
+            } else {
+                System.out.println("Invalid Password format");
+            }
+        }
+    }
+
+    public static void PressEnter() {
+        Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
-        MainMenu.menu();
 
     }
 
