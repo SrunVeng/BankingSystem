@@ -31,6 +31,7 @@ public class StaffDaoImpl implements StaffDao {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 staff = new Staff();
+                staff.setId(result.getInt("staff_id"));
                 staff.setUserName(result.getString("username"));
                 staff.setFirstName(result.getString("first_name"));
                 staff.setLastName(result.getString("last_name"));

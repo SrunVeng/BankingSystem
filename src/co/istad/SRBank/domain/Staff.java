@@ -1,7 +1,7 @@
 package co.istad.SRBank.domain;
 
 public class Staff {
-
+    private int Id;
     private String userName;
     private String passwordHash;
     private String firstName;
@@ -60,9 +60,18 @@ public class Staff {
         this.userName = userName;
     }
 
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
     @Override
     public String toString() {
         return
+                "  StaffId=" + Id +
                 "  userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

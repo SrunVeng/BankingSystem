@@ -38,7 +38,7 @@ public class LoginAuth {
             if (result) {
                 this.UserName = username;
             }
-            return true;
+            return result;
         } catch (SQLException e) {
             return false;
         }

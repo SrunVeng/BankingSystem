@@ -1,11 +1,14 @@
 package co.istad.SRBank.util;
 
+import co.istad.SRBank.dao.CustomerCifDao;
 import co.istad.SRBank.dao.LoanAccountDao;
 import co.istad.SRBank.dao.SavingAccountDao;
 import co.istad.SRBank.dao.StaffDao;
+import co.istad.SRBank.dao.impl.CustomerCifDaoImpl;
 import co.istad.SRBank.dao.impl.LoanAccountDaoImpl;
 import co.istad.SRBank.dao.impl.SavingAccountDaoImpl;
 import co.istad.SRBank.dao.impl.StaffDaoImpl;
+import co.istad.SRBank.domain.CustomerCif;
 import co.istad.SRBank.domain.LoanAccount;
 import co.istad.SRBank.domain.SavingAccount;
 import co.istad.SRBank.domain.Staff;
@@ -17,8 +20,10 @@ public class MainMenu {
 
 
     private static void CifCreationMenu() {
-
-
+        System.out.println("Welcome onboard New Customer");
+        ScannerUtil.fillInCifForm();
+        CustomerCifDao cifDao = new CustomerCifDaoImpl();
+        cifDao.registerCif();
     }
 
     private static void accountCreationMenu() {
@@ -56,7 +61,7 @@ public class MainMenu {
         OptionChose = ScannerUtil.scanInt();
         switch (OptionChose) {
             case 1:
-                System.out.println("Create CIF");
+                CifCreationMenu();
                 break;
             case 2:
                 accountCreationMenu();

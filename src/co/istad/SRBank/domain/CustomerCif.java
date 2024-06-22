@@ -1,12 +1,14 @@
 package co.istad.SRBank.domain;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class CustomerCif {
+    private int cifId;
     private String first_name;
     private String last_name;
     private char gender;
-    private LocalDate dob;
+    private Date dob;
     private String nid;
     private String employment;
     private String sourceOfFund;
@@ -16,7 +18,7 @@ public class CustomerCif {
     private String street;
     private String house;
     private LocalDate createOn;
-    private Staff staffId;
+    private Staff id;
 
     public CustomerCif() {
     }
@@ -45,11 +47,11 @@ public class CustomerCif {
         this.gender = gender;
     }
 
-    public LocalDate getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
@@ -126,10 +128,18 @@ public class CustomerCif {
     }
 
     public Staff getStaffId() {
-        return staffId;
+        return id;
     }
 
     public void setStaffId(Staff staffId) {
-        this.staffId = staffId;
+        this.id = staffId;
+    }
+
+    public int cifId() {
+        return cifId;
+    }
+
+    public void cifId(int cifId) {
+        this.cifId = cifId;
     }
 }

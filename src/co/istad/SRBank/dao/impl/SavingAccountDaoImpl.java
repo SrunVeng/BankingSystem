@@ -32,7 +32,7 @@ public class SavingAccountDaoImpl implements SavingAccountDao {
             while (result.next()) {
                 SavingAccount savingAccount = new SavingAccount();
                 savingAccount.setSavingAccNum(result.getInt("saving_account_number"));
-                //savingAccount.setCifNumber(result.getInt("cif_number"));
+               // savingAccount.setCifNumber(result.getInt("cif_number"));
                 savingAccount.setInterest(result.getBigDecimal("interest"));
                 savingAccount.setBalance(result.getBigDecimal("balance"));
                 //    savingAccount.setStaffId(result.getInt("staff_id"));
