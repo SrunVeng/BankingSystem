@@ -1,6 +1,7 @@
 package co.istad.SRBank.util;
 
 import co.istad.SRBank.domain.CustomerCif;
+import co.istad.SRBank.domain.Staff;
 
 import java.sql.Date;
 import java.util.InputMismatchException;
@@ -76,6 +77,7 @@ public class ScannerUtil {
                 return inputText;  // Return the valid input
             } else {
                 System.out.println("Invalid input. Please enter letters.");
+                System.out.print("Try again:");
             }
         }
 
@@ -167,92 +169,6 @@ public class ScannerUtil {
     }
 
 
-    public static void fillInCifForm() {
-        boolean complete = true;
-        Scanner scanner = new Scanner(System.in);
-        CustomerCif customerCif = new CustomerCif();
-        String firstName;
-        String last_Name;
-        char gender;
-        Date dateOfBirth;
-        String nid;
-        String employment;
-        String incomeSource;
-        String phoneNumber;
-        String district;
-        String provinceCity;
-        String street;
-        String house;
-
-        do {
-            System.out.println("# General Information");
-            System.out.print("First Name: ");
-            firstName = ScannerUtil.scanText();
-
-
-            System.out.print("Last Name: ");
-            last_Name = ScannerUtil.scanText();
-
-            System.out.print("Gender (M/F): ");
-            gender = ScannerUtil.scanGender();
-
-            System.out.print("Date of Birth (YYYY-MM-DD): ");
-            dateOfBirth = Date.valueOf(ScannerUtil.scanDate());
-
-            System.out.print("National ID: ");
-            nid = String.valueOf(ScannerUtil.scanNid());
-
-            System.out.print("Employment status: ");
-            employment = ScannerUtil.scanText();
-
-            System.out.print("Income Source: ");
-            incomeSource = ScannerUtil.scanText();
-
-            System.out.print("Phone Number: ");
-            phoneNumber = ScannerUtil.scanPhoneNumber();
-
-            System.out.println("# Address Information");
-            System.out.print("District: ");
-            district = ScannerUtil.scanText();
-
-            System.out.print("Province or City: ");
-            provinceCity = ScannerUtil.scanText();
-
-            System.out.print("Street: ");
-            street = ScannerUtil.scanText();
-
-            System.out.print("House: ");
-            house = ScannerUtil.scanText();
-
-            System.out.println("You have completed the form.");
-            System.out.print("Do you confirm all information is correct? (y/n): ");
-            String confirm = ScannerUtil.scanYesNo();
-
-            if (confirm.equalsIgnoreCase("y")) {
-                complete = true;
-            } else {
-                complete = false;
-                System.out.println("Please review and correct your information.");
-            }
-
-        } while (!complete);
-
-        System.out.println("Thank you for completing the form.");
-        customerCif.setFirst_name(firstName);
-        customerCif.setLast_name(last_Name);
-        customerCif.setGender(gender);
-        customerCif.setDob(dateOfBirth);
-        customerCif.setNid(nid);
-        customerCif.setEmployment(employment);
-        customerCif.setSourceOfFund(incomeSource);
-        customerCif.setPhoneNumber(phoneNumber);
-        customerCif.setDistrict(district);
-        customerCif.setProvinceCity(provinceCity);
-        customerCif.setStreet(street);
-        customerCif.setHouse(house);
-        scanner.close();
-
-    }
 
 }
 

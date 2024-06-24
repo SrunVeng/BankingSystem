@@ -127,12 +127,12 @@ public class CustomerCif {
         this.createOn = createOn;
     }
 
-    public Staff getStaffId() {
+    public Staff getId() {
         return id;
     }
 
-    public void setStaffId(Staff staffId) {
-        this.id = staffId;
+    public void setId(Staff id) {
+        this.id = id;
     }
 
     public int cifId() {

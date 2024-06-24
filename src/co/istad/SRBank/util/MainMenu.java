@@ -13,7 +13,9 @@ import co.istad.SRBank.domain.LoanAccount;
 import co.istad.SRBank.domain.SavingAccount;
 import co.istad.SRBank.domain.Staff;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class MainMenu {
@@ -21,9 +23,93 @@ public class MainMenu {
 
     private static void CifCreationMenu() {
         System.out.println("Welcome onboard New Customer");
-        ScannerUtil.fillInCifForm();
+        CustomerCif newCustomerCif = new CustomerCif();
+        boolean complete = true;
+        Scanner scanner = new Scanner(System.in);
+        Staff staff = new Staff();
+        String firstName;
+        String last_Name;
+        char gender;
+        Date dateOfBirth;
+        String nid;
+        String employment;
+        String incomeSource;
+        String phoneNumber;
+        String district;
+        String provinceCity;
+        String street;
+        String house;
+
+        do {
+            System.out.println("# General Information");
+            System.out.print("First Name: ");
+            firstName = ScannerUtil.scanText();
+
+
+            System.out.print("Last Name: ");
+            last_Name = ScannerUtil.scanText();
+
+            System.out.print("Gender (M/F): ");
+            gender = ScannerUtil.scanGender();
+
+            System.out.print("Date of Birth (YYYY-MM-DD): ");
+            dateOfBirth = Date.valueOf(ScannerUtil.scanDate());
+
+            System.out.print("National ID: ");
+            nid = String.valueOf(ScannerUtil.scanNid());
+
+            System.out.print("Employment status: ");
+            employment = ScannerUtil.scanText();
+
+            System.out.print("Income Source: ");
+            incomeSource = ScannerUtil.scanText();
+
+            System.out.print("Phone Number: ");
+            phoneNumber = ScannerUtil.scanPhoneNumber();
+
+            System.out.println("# Address Information");
+            System.out.print("District: ");
+            district = ScannerUtil.scanText();
+
+            System.out.print("Province or City: ");
+            provinceCity = ScannerUtil.scanText();
+
+            System.out.print("Street: ");
+            street = ScannerUtil.scanText();
+
+            System.out.print("House: ");
+            house = ScannerUtil.scanText();
+
+            System.out.println("You have completed the form.");
+            System.out.print("Do you confirm all information is correct? (y/n): ");
+            String confirm = ScannerUtil.scanYesNo();
+
+            if (confirm.equalsIgnoreCase("y")) {
+                complete = true;
+            } else {
+                complete = false;
+                System.out.println("Please review and correct your information.");
+            }
+
+        } while (!complete);
+
+        System.out.println("Thank you for completing the form.");
+        newCustomerCif.setFirst_name(firstName);
+        newCustomerCif.setLast_name(last_Name);
+        newCustomerCif.setGender(gender);
+        newCustomerCif.setDob(dateOfBirth);
+        newCustomerCif.setNid(nid);
+        newCustomerCif.setEmployment(employment);
+        newCustomerCif.setSourceOfFund(incomeSource);
+        newCustomerCif.setPhoneNumber(phoneNumber);
+        newCustomerCif.setDistrict(district);
+        newCustomerCif.setProvinceCity(provinceCity);
+        newCustomerCif.setStreet(street);
+        newCustomerCif.setHouse(house);
+        newCustomerCif.setId(staff.getId());
+
         CustomerCifDao cifDao = new CustomerCifDaoImpl();
-        cifDao.registerCif();
+        cifDao.registerCif(newCustomerCif);
     }
 
     private static void accountCreationMenu() {

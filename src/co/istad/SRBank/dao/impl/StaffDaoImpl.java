@@ -19,8 +19,7 @@ public class StaffDaoImpl implements StaffDao {
         dbSingleton = DbSingleton.getDbSingleton();
         connection = dbSingleton.getConnection();
     }
-
-
+    
     @Override
     public Staff showStaffInformation() {
         Staff staff = null;

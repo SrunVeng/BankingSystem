@@ -1,9 +1,11 @@
 package co.istad.SRBank.dao;
 
+import co.istad.SRBank.domain.CustomerCif;
+
 public interface CustomerCifDao {
 
 
-    void registerCif();
+    void registerCif(CustomerCif customerCif);
 
 
 }
