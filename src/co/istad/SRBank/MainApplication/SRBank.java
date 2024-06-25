@@ -6,12 +6,13 @@ import co.istad.SRBank.util.ScannerUtil;
 public class SRBank {
     public static void main(String[] args) {
         LoginAuth loginAuth = LoginAuth.getInstance();
-        System.out.println("   __             _       \n" +
-                "  / /  ___   __ _(_)_ __  \n" +
-                " / /  / _ \\ / _` | | '_ \\ \n" +
-                "/ /__| (_) | (_| | | | | |\n" +
-                "\\____/\\___/ \\__, |_|_| |_|\n" +
-                "            |___/         ");
+        System.out.println("""
+                   __             _      \s
+                  / /  ___   __ _(_)_ __ \s
+                 / /  / _ \\ / _` | | '_ \\\s
+                / /__| (_) | (_| | | | | |
+                \\____/\\___/ \\__, |_|_| |_|
+                            |___/        \s""");
         while (true) {
             String Username = ScannerUtil.scanText("Enter Username:");
             String password = ScannerUtil.scanPassword("Enter Password:");

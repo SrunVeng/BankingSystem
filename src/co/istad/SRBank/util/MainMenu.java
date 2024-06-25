@@ -201,7 +201,7 @@ public class MainMenu {
             case 4:
                 System.out.println("#CIF Delete");
                 int deleteCIF = ScannerUtil.scanInt("Enter CIF Number to delete :");
-                boolean deletedCIF;
+                boolean deletedCIF ;
                 String confirm = ScannerUtil.scanYesNo("Do you confirm to delete CIF? (y/n): ");
 
                 if (confirm.equalsIgnoreCase("y")) {
