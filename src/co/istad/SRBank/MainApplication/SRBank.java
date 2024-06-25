@@ -24,6 +24,5 @@ public class SRBank {
                 System.out.println("Invalid User Input");
             }
         }
-
     }
 }

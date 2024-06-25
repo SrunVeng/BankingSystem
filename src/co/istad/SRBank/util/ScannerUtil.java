@@ -38,23 +38,17 @@ public class ScannerUtil {
 
 
 
-    public static int scanNid(String label) {
+    public static String scanNid(String label) {
         Scanner scanner = new Scanner(System.in);
-        int inputInt;
+        String inputStr;
         System.out.print(label);
         while (true) {
-            try {
-                inputInt = scanner.nextInt();
-                // Validate the input
-                String inputStr = String.valueOf(inputInt);
-                if (inputStr.length() == 9) {
-                    return inputInt;
-                } else {
-                    System.out.println("Invalid input. Please enter a 9-digit number.");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Clear the invalid input
+            inputStr = scanner.next();
+            // Validate the input
+            if (inputStr.matches("\\d{9}")) {
+                return inputStr;
+            } else {
+                System.out.println("Invalid input. Please enter a 9-digit number.");
             }
             System.out.print(label); // Prompt again
         }

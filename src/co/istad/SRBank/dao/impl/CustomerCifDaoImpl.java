@@ -8,6 +8,7 @@ import co.istad.SRBank.util.ScannerUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerCifDaoImpl implements CustomerCifDao {
@@ -50,7 +51,6 @@ public class CustomerCifDaoImpl implements CustomerCifDao {
         }
     }
 
-
     @Override
     public void deleteCif(int cifForDelete) {
         String sql = "DELETE FROM customer_cif WHERE cif_number = ?";
@@ -66,6 +66,40 @@ public class CustomerCifDaoImpl implements CustomerCifDao {
             }
         } catch (SQLException e) {
             System.out.println("CIF cannot be deleted as the Customer still holding account with bank");
+        }
+    }
+
+    @Override
+    public CustomerCif findCustomerByNID(String NID) {
+        CustomerCif foundCustomer = new CustomerCif();
+        String sql = "SELECT * FROM customer_cif WHERE nid = ? ";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, NID);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                foundCustomer.setCifNumber(result.getInt("cif_number"));
+                foundCustomer.setFirst_name(result.getString("first_name"));
+                foundCustomer.setLast_name(result.getString("last_name"));
+                String genderStr = result.getString("gender");
+                if (genderStr != null && !genderStr.isEmpty()) {
+                    foundCustomer.setGender(genderStr.charAt(0));
+                }
+                foundCustomer.setDob(result.getDate("dob"));
+                foundCustomer.setNid(result.getString("nid"));
+                foundCustomer.setEmployment(result.getString("employment"));
+                foundCustomer.setSourceOfFund(result.getString("source_of_fund"));
+                foundCustomer.setPhoneNumber(result.getString("phone_number"));
+                foundCustomer.setDistrict(result.getString("district"));
+                foundCustomer.setProvinceCity(result.getString("province_city"));
+                foundCustomer.setStreet(result.getString("street"));
+                foundCustomer.setHouse(result.getString("house"));
+                foundCustomer.setCreateOn(result.getDate("created_on").toLocalDate());
+                foundCustomer.setId(result.getInt("staff_id"));
+            }
+            return foundCustomer;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

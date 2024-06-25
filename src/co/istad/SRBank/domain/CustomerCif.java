@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class CustomerCif {
     private int cifId;
+    private int CifNumber;
     private String first_name;
     private String last_name;
     private char gender;
@@ -29,6 +30,14 @@ public class CustomerCif {
 
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
+    }
+
+    public int getCifNumber() {
+        return CifNumber;
+    }
+
+    public void setCifNumber(int cifNumber) {
+        CifNumber = cifNumber;
     }
 
     public String getLast_name() {
@@ -143,10 +152,12 @@ public class CustomerCif {
         this.cifId = cifId;
     }
 
+
     @Override
     public String toString() {
         return
-                "cifId=" + cifId +
+                "  CifNumber= " + CifNumber +
+                "  cifId= " + cifId +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", gender=" + gender +
@@ -160,6 +171,6 @@ public class CustomerCif {
                 ", street='" + street + '\'' +
                 ", house='" + house + '\'' +
                 ", createOn=" + createOn +
-                ", id=" + id;
+                ", Staff_id=" + id;
     }
 }

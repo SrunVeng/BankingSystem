@@ -44,7 +44,7 @@ public class MainMenu {
             last_Name = ScannerUtil.scanText("Last Name: ");
             gender = ScannerUtil.scanGender("Gender (M/F): ");
             dateOfBirth = Date.valueOf(ScannerUtil.scanDate("Date of Birth (YYYY-MM-DD): "));
-            nid = String.valueOf(ScannerUtil.scanNid("National ID: "));
+            nid = ScannerUtil.scanNid("National ID: ");
             employment = ScannerUtil.scanText("Employment status: ");
             incomeSource = ScannerUtil.scanText("Income Source: ");
             phoneNumber = ScannerUtil.scanPhoneNumber("Phone Number: ");
@@ -99,7 +99,10 @@ public class MainMenu {
                 accountOpeningMenu();
                 break;
             case 2:
-                System.out.println(2);
+                System.out.println("#Search Customer by National ID card");
+                String Nid = ScannerUtil.scanNid("Please Enter Customer National ID card:");
+                CustomerCifDao customerCifDao = new CustomerCifDaoImpl();
+                System.out.println(customerCifDao.findCustomerByNID(Nid));
                 break;
             case 0:
                 menu();
@@ -117,12 +120,12 @@ public class MainMenu {
             case 1:
                 int cifNumber = ScannerUtil.scanInt("Enter CIF Number:");
                 boolean cifCheck = savingAccountDao.verifyCIFBeforeOpening(cifNumber);
-                if(cifCheck){
+                if (cifCheck) {
                     savingAccountDao.openSavingAccount(cifNumber);
                     System.out.println("Press Enter to Back");
                     ScannerUtil.PressEnter();
                     accountOpeningMenu();
-                }else {
+                } else {
                     System.out.println("CIF is not exist");
                     System.out.println("Press Enter to Back");
                     ScannerUtil.PressEnter();
@@ -136,12 +139,12 @@ public class MainMenu {
                 BigDecimal interest = ScannerUtil.scanBigDecimal("Enter Interest Rate per year:");
                 int term = ScannerUtil.scanInt("Enter Loan Term:");
                 boolean cifCheckLoan = savingAccountDao.verifyCIFBeforeOpening(cifNumberLoan);
-                if(cifCheckLoan){
-                    loanAccountDao.openLoanAccount(cifNumberLoan,loanAmount,outstanding,interest,term);
+                if (cifCheckLoan) {
+                    loanAccountDao.openLoanAccount(cifNumberLoan, loanAmount, outstanding, interest, term);
                     System.out.println("Press Enter to Back");
                     ScannerUtil.PressEnter();
                     accountOpeningMenu();
-                }else {
+                } else {
                     System.out.println("CIF is not exist");
                     System.out.println("Press Enter to Back");
                     ScannerUtil.PressEnter();
@@ -157,11 +160,13 @@ public class MainMenu {
 
     public static void menu() {
         int OptionChose;
-        System.out.println("  ___ ___ ___   _   _  _ _  __    _   ___ ___ ___  _   _ _  _ _____   _____   _____ _____ ___ __  __ \n" +
-                " / __| _ \\ _ ) /_\\ | \\| | |/ /   /_\\ / __/ __/ _ \\| | | | \\| |_   _| / __\\ \\ / / __|_   _| __|  \\/  |\n" +
-                " \\__ \\   / _ \\/ _ \\| .` | ' <   / _ \\ (_| (_| (_) | |_| | .` | | |   \\__ \\\\ V /\\__ \\ | | | _|| |\\/| |\n" +
-                " |___/_|_\\___/_/ \\_\\_|\\_|_|\\_\\ /_/ \\_\\___\\___\\___/ \\___/|_|\\_| |_|   |___/ |_| |___/ |_| |___|_|  |_|\n" +
-                "                                                                                                     ");
+        System.out.println("""
+                  ___ ___ ___   _   _  _ _  __    _   ___ ___ ___  _   _ _  _ _____   _____   _____ _____ ___ __  __\s
+                 / __| _ \\ _ ) /_\\ | \\| | |/ /   /_\\ / __/ __/ _ \\| | | | \\| |_   _| / __\\ \\ / / __|_   _| __|  \\/  |
+                 \\__ \\   / _ \\/ _ \\| .` | ' <   / _ \\ (_| (_| (_) | |_| | .` | | |   \\__ \\\\ V /\\__ \\ | | | _|| |\\/| |
+                 |___/_|_\\___/_/ \\_\\_|\\_|_|\\_\\ /_/ \\_\\___\\___\\___/ \\___/|_|\\_| |_|   |___/ |_| |___/ |_| |___|_|  |_|
+                                                                                                                     \
+                """);
         System.out.println("========================================================================================================");
         System.out.printf("#Bank Officer:%s", LoginAuth.getInstance().getUserNameLogin());
         System.out.println();
@@ -175,7 +180,6 @@ public class MainMenu {
                 existingCustomerMenu();
                 break;
             case 3: {
-
                 SavingAccountDao savingAccountDao = new SavingAccountDaoImpl();
                 LoanAccountDao loanAccountDao = new LoanAccountDaoImpl();
                 List<SavingAccount> savingAccounts = savingAccountDao.findAllSaving();

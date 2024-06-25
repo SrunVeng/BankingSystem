@@ -9,6 +9,6 @@ public interface CustomerCifDao {
 
     void deleteCif(int cifForDelete);
 
-
+    CustomerCif findCustomerByNID(String NID);
 
 }
