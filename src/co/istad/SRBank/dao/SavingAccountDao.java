@@ -11,4 +11,9 @@ public interface SavingAccountDao {
     // return type list of savingAccount
     List<SavingAccount> findAllSaving();
 
+
+    // Create SavingAccount base on CIF check
+
+
+
 }

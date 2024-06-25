@@ -92,13 +92,13 @@ public class MainMenu {
         cifDao.registerCif(newCustomerCif);
     }
 
-    private static void accountCreationMenu() {
+    private static void existingCustomerMenu() {
         int OptionChose;
-        Information.accountCreationInfo();
+        Information.existingCustomerInfo();
         OptionChose = ScannerUtil.scanInt("Choose Option: ");
         switch (OptionChose) {
             case 1:
-                System.out.println(1);
+                accountOpeningMenu();
                 break;
             case 2:
                 System.out.println(2);
@@ -109,6 +109,27 @@ public class MainMenu {
         }
 
     }
+    private static void accountOpeningMenu() {
+        int OptionChose;
+        Information.accountOpeningInfo();
+        OptionChose = ScannerUtil.scanInt("Choose Option: ");
+        switch (OptionChose) {
+            case 1:
+                System.out.println(1);
+                break;
+            case 2:
+                System.out.println(2);
+                break;
+            case 0:
+                existingCustomerMenu();
+                break;
+        }
+
+    }
+
+
+
+
 
     public static void menu() {
         int OptionChose;
@@ -128,7 +149,7 @@ public class MainMenu {
                 CifCreationMenu();
                 break;
             case 2:
-                accountCreationMenu();
+                existingCustomerMenu();
                 break;
             case 3: {
 
@@ -160,6 +181,8 @@ public class MainMenu {
                     deletedCIF = true;
                     CustomerCifDao cifDao = new CustomerCifDaoImpl();
                     cifDao.deleteCif(deleteCIF);
+                    ScannerUtil.PressEnter();
+                    menu();
                 } else {
                     deletedCIF = false;
                     System.out.println(">Enter to return to main menu");
@@ -181,8 +204,7 @@ public class MainMenu {
                 System.out.println("#You have permission to close only SavingAccount Type");
                 boolean deleted = false;
                 do {
-                    System.out.print(">Enter Closing SavingAccNumber:");
-                    int accountNumber = ScannerUtil.scanAccountNumber();
+                    int accountNumber = ScannerUtil.scanAccountNumber(">Enter Closing SavingAccNumber:");
                     if (accountNumber == 0) {
                         menu();
                     } else {

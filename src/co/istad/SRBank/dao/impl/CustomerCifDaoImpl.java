@@ -5,6 +5,7 @@ import co.istad.SRBank.database.DbSingleton;
 import co.istad.SRBank.domain.CustomerCif;
 import co.istad.SRBank.util.LoginAuth;
 import co.istad.SRBank.util.MainMenu;
+import co.istad.SRBank.util.ScannerUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -62,6 +63,8 @@ public class CustomerCifDaoImpl implements CustomerCifDao {
                 System.out.println("CIF successfully deleted. " + affectedRows + " CIF(s) removed by " + LoginAuth.getInstance().getUserName() + ".");
             } else {
                 System.out.println("CIF removed failed: No CIF was removed.");
+                System.out.println("Press Enter to return to main menu");
+                ScannerUtil.PressEnter();
             }
 
         } catch (SQLException e) {

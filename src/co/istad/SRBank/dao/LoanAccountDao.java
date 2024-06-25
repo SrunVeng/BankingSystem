@@ -8,4 +8,7 @@ public interface LoanAccountDao {
 
     List<LoanAccount> findAllLoan();
 
+
+    // Create LoanAccount base on CIF check
+
 }

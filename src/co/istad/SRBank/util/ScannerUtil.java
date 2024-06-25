@@ -24,7 +24,6 @@ public class ScannerUtil {
         }
     }
 
-
     public static int scanNid(String label) {
         Scanner scanner = new Scanner(System.in);
         int inputInt;
@@ -47,21 +46,19 @@ public class ScannerUtil {
         }
     }
 
-    public static int scanAccountNumber() {
+    public static int scanAccountNumber(String label) {
         Scanner scanner = new Scanner(System.in);
         int inputInt;
+        System.out.print(label);
         while (true) {
             try {
                 inputInt = scanner.nextInt();
                 return inputInt;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter Number.");
-                System.out.println("Press Enter to try again.");
-                System.out.println("Type 0 Enter to Return to MainMenu");
-                PressEnter();
-                System.out.print(">Enter Closing SavingAccNumber:");
                 scanner.next();
             }
+            System.out.print(label);
         }
     }
 
