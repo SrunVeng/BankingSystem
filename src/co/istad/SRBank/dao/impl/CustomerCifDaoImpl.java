@@ -4,7 +4,6 @@ import co.istad.SRBank.dao.CustomerCifDao;
 import co.istad.SRBank.database.DbSingleton;
 import co.istad.SRBank.domain.CustomerCif;
 import co.istad.SRBank.util.LoginAuth;
-import co.istad.SRBank.util.MainMenu;
 import co.istad.SRBank.util.ScannerUtil;
 
 import java.sql.Connection;
@@ -40,7 +39,6 @@ public class CustomerCifDaoImpl implements CustomerCifDao {
             statement.setString(11, newCustomerCif.getStreet());
             statement.setString(12, newCustomerCif.getHouse());
             statement.setInt(13, LoginAuth.getInstance().getStaffId());
-
             int affectedRows = statement.executeUpdate();
             if (affectedRows > 0) {
                 System.out.println("CIF successfully created. " + affectedRows + " CIF(s) created by " + LoginAuth.getInstance().getUserName() + ".");
@@ -66,9 +64,8 @@ public class CustomerCifDaoImpl implements CustomerCifDao {
                 System.out.println("Press Enter to return to main menu");
                 ScannerUtil.PressEnter();
             }
-
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIF cannot be deleted as the Customer still holding account with bank");
         }
     }
 }

@@ -4,24 +4,24 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class LoanAccount {
-    private int loanAccNum;
+    private long loanAccNum;
     private BigDecimal interest;
     private BigDecimal amount;
     private BigDecimal outStanding;
     private int term;
     private LocalDate createOnl;
-    private Staff staffId;
-    private CustomerCif cifNumber;
+    private int staffId;
+    private int cifNumber;
 
     public LoanAccount() {
 
     }
 
-    public int getLoanAccNum() {
+    public long getLoanAccNum() {
         return loanAccNum;
     }
 
-    public void setLoanAccNum(int loanAccNum) {
+    public void setLoanAccNum(long loanAccNum) {
         this.loanAccNum = loanAccNum;
     }
 
@@ -65,19 +65,19 @@ public class LoanAccount {
         this.createOnl = createOnl;
     }
 
-    public Staff getStaffId() {
+    public int getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Staff staffId) {
+    public void setStaffId(int staffId) {
         this.staffId = staffId;
     }
 
-    public CustomerCif getCifNumber() {
+    public int getCifNumber() {
         return cifNumber;
     }
 
-    public void setCifNumber(CustomerCif cifNumber) {
+    public void setCifNumber(int cifNumber) {
         this.cifNumber = cifNumber;
     }
 

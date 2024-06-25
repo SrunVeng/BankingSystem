@@ -13,17 +13,16 @@ import co.istad.SRBank.domain.LoanAccount;
 import co.istad.SRBank.domain.SavingAccount;
 import co.istad.SRBank.domain.Staff;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class MainMenu {
     private static void CifCreationMenu() {
         System.out.println("Welcome onboard New Customer");
         CustomerCif newCustomerCif = new CustomerCif();
-        boolean complete = true;
-        Scanner scanner = new Scanner(System.in);
+        boolean complete;
         Staff staff = new Staff();
         String firstName;
         String last_Name;
@@ -55,8 +54,8 @@ public class MainMenu {
             System.out.println("# Address Information");
             district = ScannerUtil.scanText("District: ");
             provinceCity = ScannerUtil.scanText("Province or City:");
-            street = ScannerUtil.scanText("Street: ");
-            house = ScannerUtil.scanText("House:");
+            street = ScannerUtil.scanTextNum("Street: ");
+            house = ScannerUtil.scanTextNum("House:");
             // End Part II
 
             //Confirmation
@@ -69,9 +68,7 @@ public class MainMenu {
                 complete = false;
                 System.out.println("Please review and correct your information.");
             }
-
         } while (!complete);
-
         System.out.println("Thank you for completing the form.");
         newCustomerCif.setFirst_name(firstName);
         newCustomerCif.setLast_name(last_Name);
@@ -86,10 +83,11 @@ public class MainMenu {
         newCustomerCif.setStreet(street);
         newCustomerCif.setHouse(house);
         newCustomerCif.setId(staff.getId());
-
-
         CustomerCifDao cifDao = new CustomerCifDaoImpl();
         cifDao.registerCif(newCustomerCif);
+        System.out.println("Press Enter to return to main menu");
+        ScannerUtil.PressEnter();
+        menu();
     }
 
     private static void existingCustomerMenu() {
@@ -107,18 +105,48 @@ public class MainMenu {
                 menu();
                 break;
         }
-
     }
+
     private static void accountOpeningMenu() {
         int OptionChose;
+        SavingAccountDao savingAccountDao = new SavingAccountDaoImpl();
+        LoanAccountDao loanAccountDao = new LoanAccountDaoImpl();
         Information.accountOpeningInfo();
         OptionChose = ScannerUtil.scanInt("Choose Option: ");
         switch (OptionChose) {
             case 1:
-                System.out.println(1);
+                int cifNumber = ScannerUtil.scanInt("Enter CIF Number:");
+                boolean cifCheck = savingAccountDao.verifyCIFBeforeOpening(cifNumber);
+                if(cifCheck){
+                    savingAccountDao.openSavingAccount(cifNumber);
+                    System.out.println("Press Enter to Back");
+                    ScannerUtil.PressEnter();
+                    accountOpeningMenu();
+                }else {
+                    System.out.println("CIF is not exist");
+                    System.out.println("Press Enter to Back");
+                    ScannerUtil.PressEnter();
+                    accountOpeningMenu();
+                }
                 break;
             case 2:
-                System.out.println(2);
+                int cifNumberLoan = ScannerUtil.scanInt("Enter CIF Number:");
+                BigDecimal loanAmount = ScannerUtil.scanBigDecimal("Enter Loan Amount:");
+                BigDecimal outstanding = loanAmount;
+                BigDecimal interest = ScannerUtil.scanBigDecimal("Enter Interest Rate per year:");
+                int term = ScannerUtil.scanInt("Enter Loan Term:");
+                boolean cifCheckLoan = savingAccountDao.verifyCIFBeforeOpening(cifNumberLoan);
+                if(cifCheckLoan){
+                    loanAccountDao.openLoanAccount(cifNumberLoan,loanAmount,outstanding,interest,term);
+                    System.out.println("Press Enter to Back");
+                    ScannerUtil.PressEnter();
+                    accountOpeningMenu();
+                }else {
+                    System.out.println("CIF is not exist");
+                    System.out.println("Press Enter to Back");
+                    ScannerUtil.PressEnter();
+                    accountOpeningMenu();
+                }
                 break;
             case 0:
                 existingCustomerMenu();
@@ -127,10 +155,6 @@ public class MainMenu {
 
     }
 
-
-
-
-
     public static void menu() {
         int OptionChose;
         System.out.println("  ___ ___ ___   _   _  _ _  __    _   ___ ___ ___  _   _ _  _ _____   _____   _____ _____ ___ __  __ \n" +
@@ -138,7 +162,6 @@ public class MainMenu {
                 " \\__ \\   / _ \\/ _ \\| .` | ' <   / _ \\ (_| (_| (_) | |_| | .` | | |   \\__ \\\\ V /\\__ \\ | | | _|| |\\/| |\n" +
                 " |___/_|_\\___/_/ \\_\\_|\\_|_|\\_\\ /_/ \\_\\___\\___\\___/ \\___/|_|\\_| |_|   |___/ |_| |___/ |_| |___|_|  |_|\n" +
                 "                                                                                                     ");
-
         System.out.println("========================================================================================================");
         System.out.printf("#Bank Officer:%s", LoginAuth.getInstance().getUserNameLogin());
         System.out.println();
@@ -172,7 +195,7 @@ public class MainMenu {
             menu();
             break;
             case 4:
-                System.out.println("#CIF Remover");
+                System.out.println("#CIF Delete");
                 int deleteCIF = ScannerUtil.scanInt("Enter CIF Number to delete :");
                 boolean deletedCIF;
                 String confirm = ScannerUtil.scanYesNo("Do you confirm to delete CIF? (y/n): ");
@@ -190,7 +213,6 @@ public class MainMenu {
                     menu();
                 }
                 break;
-
             case 5:
                 StaffDao staffDao = new StaffDaoImpl();
                 Staff staff = staffDao.showStaffInformation();
@@ -204,7 +226,7 @@ public class MainMenu {
                 System.out.println("#You have permission to close only SavingAccount Type");
                 boolean deleted = false;
                 do {
-                    int accountNumber = ScannerUtil.scanAccountNumber(">Enter Closing SavingAccNumber:");
+                    long accountNumber = ScannerUtil.scanAccountNumber(">Enter Closing SavingAccNumber:");
                     if (accountNumber == 0) {
                         menu();
                     } else {
@@ -228,7 +250,5 @@ public class MainMenu {
                 System.exit(0);
                 break;
         }
-
-
     }
 }

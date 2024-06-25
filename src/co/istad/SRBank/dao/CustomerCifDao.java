@@ -8,4 +8,7 @@ public interface CustomerCifDao {
     void registerCif(CustomerCif customerCif);
 
     void deleteCif(int cifForDelete);
+
+
+
 }

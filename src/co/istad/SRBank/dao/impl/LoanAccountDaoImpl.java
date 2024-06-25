@@ -3,7 +3,10 @@ package co.istad.SRBank.dao.impl;
 import co.istad.SRBank.dao.LoanAccountDao;
 import co.istad.SRBank.database.DbSingleton;
 import co.istad.SRBank.domain.LoanAccount;
+import co.istad.SRBank.util.GenerateNumber;
+import co.istad.SRBank.util.LoginAuth;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,11 +35,11 @@ public class LoanAccountDaoImpl implements LoanAccountDao {
 
             while (result.next()) {
                 LoanAccount loanAccount = new LoanAccount();
-                loanAccount.setLoanAccNum(result.getInt("loan_account_number"));
-                //savingAccount.setCifNumber(result.getInt("cif_number"));
+                loanAccount.setLoanAccNum(result.getLong("loan_account_number"));
+                loanAccount.setCifNumber(result.getInt("cif_number"));
                 loanAccount.setInterest(result.getBigDecimal("interest"));
                 loanAccount.setAmount(result.getBigDecimal("amount"));
-                //    savingAccount.setStaffId(result.getInt("staff_id"));
+                loanAccount.setStaffId(result.getInt("staff_id"));
                 loanAccount.setOutStanding(result.getBigDecimal("outstanding"));
                 loanAccount.setTerm(result.getInt("term"));
                 loanAccount.setCreateOnl(result.getDate("created_on").toLocalDate());
@@ -48,5 +51,30 @@ public class LoanAccountDaoImpl implements LoanAccountDao {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void openLoanAccount(int CIF, BigDecimal amount,BigDecimal outstanding, BigDecimal interest, int term) {
+        String sql = "INSERT INTO loan_account (" +
+                "loan_account_number, cif_number, interest, amount, outstanding, term ,staff_id, created_on) " +
+                "VALUES (?, ?, ?, ?, ?, ?,?, CURRENT_DATE)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, GenerateNumber.generateUniqueNumber());
+            statement.setInt(2, CIF);
+            statement.setBigDecimal(3, interest);
+            statement.setBigDecimal(4, amount);
+            statement.setBigDecimal(5, outstanding);
+            statement.setInt(6, term);
+            statement.setInt(7, LoginAuth.getInstance().getStaffId());
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("LoanAccount successfully created. " + affectedRows + " LoanAcc(s) created by " + LoginAuth.getInstance().getUserName() + ".");
+            } else {
+                System.out.println("creation failed: No Account was created.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -16,12 +16,11 @@ public class CloseAccount {
         connection = dbSingleton.getConnection();
 
     }
-
-    public boolean closeAccount(int accountNumber) {
+    public boolean closeAccount(long accountNumber) {
         String sql = "DELETE FROM saving_account WHERE saving_account_number = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,accountNumber);
+            statement.setLong(1,accountNumber);
             int DeletedAccount= statement.executeUpdate();
             return DeletedAccount > 0;
 
@@ -30,6 +29,4 @@ public class CloseAccount {
             return false;
         }
     }
-
-
 }

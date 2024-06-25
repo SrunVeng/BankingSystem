@@ -1,14 +1,10 @@
 package co.istad.SRBank.util;
 
-import co.istad.SRBank.domain.CustomerCif;
-import co.istad.SRBank.domain.Staff;
-
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ScannerUtil {
-
     public static int scanInt(String label) {
         Scanner scanner = new Scanner(System.in);
         int inputInt;
@@ -23,6 +19,24 @@ public class ScannerUtil {
             System.out.print(label);
         }
     }
+
+    public static BigDecimal scanBigDecimal(String label) {
+        Scanner scanner = new Scanner(System.in);
+        BigDecimal inputBigDecimal;
+        System.out.print(label);
+        while (true) {
+            try {
+                inputBigDecimal = scanner.nextBigDecimal();
+                return inputBigDecimal;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next(); // Clear the invalid input
+            }
+            System.out.print(label);
+        }
+    }
+
+
 
     public static int scanNid(String label) {
         Scanner scanner = new Scanner(System.in);
@@ -46,13 +60,13 @@ public class ScannerUtil {
         }
     }
 
-    public static int scanAccountNumber(String label) {
+    public static Long scanAccountNumber(String label) {
         Scanner scanner = new Scanner(System.in);
-        int inputInt;
+        long inputInt;
         System.out.print(label);
         while (true) {
             try {
-                inputInt = scanner.nextInt();
+                inputInt = scanner.nextLong();
                 return inputInt;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter Number.");
@@ -61,7 +75,6 @@ public class ScannerUtil {
             System.out.print(label);
         }
     }
-
 
     public static String scanText(String label) {
         Scanner scanner = new Scanner(System.in);
@@ -78,6 +91,21 @@ public class ScannerUtil {
         }
     }
 
+    public static String scanTextNum(String label) {
+        Scanner scanner = new Scanner(System.in);
+        String inputText;
+        System.out.print(label);
+        while (true) {
+            inputText = scanner.nextLine();
+            // Modify the condition to allow alphanumeric input
+            if (inputText.matches("^[a-zA-Z0-9]+$")) {
+                return inputText;  // Return the valid input
+            } else {
+                System.out.println("Invalid input. Please enter alphanumeric characters.");
+                System.out.print(label);
+            }
+        }
+    }
 
 
 
@@ -153,7 +181,6 @@ public class ScannerUtil {
         }
     }
 
-
     public static String scanDate(String label) {
         Scanner scanner = new Scanner(System.in);
         String inputDate;
@@ -172,8 +199,5 @@ public class ScannerUtil {
         }
 
     }
-
-
-
 }
 

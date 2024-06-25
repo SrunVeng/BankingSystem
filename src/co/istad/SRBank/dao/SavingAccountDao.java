@@ -14,6 +14,8 @@ public interface SavingAccountDao {
 
     // Create SavingAccount base on CIF check
 
+    void openSavingAccount(int CIFNumber);
 
+    boolean verifyCIFBeforeOpening(int CIFNumber);
 
 }

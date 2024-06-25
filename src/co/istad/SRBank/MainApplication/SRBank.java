@@ -1,14 +1,9 @@
 package co.istad.SRBank.MainApplication;
-
-import co.istad.SRBank.domain.CustomerCif;
-import co.istad.SRBank.domain.Staff;
 import co.istad.SRBank.util.LoginAuth;
 import co.istad.SRBank.util.MainMenu;
 import co.istad.SRBank.util.ScannerUtil;
 
-
 public class SRBank {
-
     public static void main(String[] args) {
         LoginAuth loginAuth = LoginAuth.getInstance();
         System.out.println("   __             _       \n" +
@@ -18,12 +13,8 @@ public class SRBank {
                 "\\____/\\___/ \\__, |_|_| |_|\n" +
                 "            |___/         ");
         while (true) {
-
-
             String Username = ScannerUtil.scanText("Enter Username:");
-
             String password = ScannerUtil.scanPassword("Enter Password:");
-
             if (loginAuth.loginAuthMainApplication(Username, password)) {
                 System.out.printf("Login as %s successfully\nPress Enter to Continue", Username);
                 ScannerUtil.PressEnter();

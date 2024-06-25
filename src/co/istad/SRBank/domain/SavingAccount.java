@@ -5,21 +5,21 @@ import java.time.LocalDate;
 
 public class SavingAccount {
 
-    private int savingAccNum;
+    private Long savingAccNum;
     private BigDecimal interest;
     private BigDecimal balance;
     private LocalDate createOnl;
-    private Staff staffId;
-    private CustomerCif cifNumber;
+    private int staffId;
+    private int cifNumber;
 
     public SavingAccount() {
     }
 
-    public int getSavingAccNum() {
+    public Long getSavingAccNum() {
         return savingAccNum;
     }
 
-    public void setSavingAccNum(int savingAccNum) {
+    public void setSavingAccNum(Long savingAccNum) {
         this.savingAccNum = savingAccNum;
     }
 
@@ -47,26 +47,26 @@ public class SavingAccount {
         this.createOnl = createOnl;
     }
 
-    public Staff getStaffId() {
+    public int getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Staff staffId) {
+    public void setStaffId(int staffId) {
         this.staffId = staffId;
     }
 
-    public CustomerCif getCifNumber() {
+    public int getCifNumber() {
         return cifNumber;
     }
 
-    public void setCifNumber(CustomerCif cifNumber) {
+    public void setCifNumber(int cifNumber) {
         this.cifNumber = cifNumber;
     }
 
     @Override
     public String toString() {
         return
-                "AccountNumber=" + savingAccNum +
+                "Saving AccountNumber=" + savingAccNum +
                 ", Interest=" + interest +
                 ", Balance=" + balance +
                 ", CreatedDate=" + createOnl +
