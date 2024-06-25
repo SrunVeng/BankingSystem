@@ -19,8 +19,6 @@ import java.util.Scanner;
 
 
 public class MainMenu {
-
-
     private static void CifCreationMenu() {
         System.out.println("Welcome onboard New Customer");
         CustomerCif newCustomerCif = new CustomerCif();
@@ -41,48 +39,29 @@ public class MainMenu {
         String house;
 
         do {
+            // General Information
             System.out.println("# General Information");
-            System.out.print("First Name: ");
-            firstName = ScannerUtil.scanText();
+            firstName = ScannerUtil.scanText("First Name: ");
+            last_Name = ScannerUtil.scanText("Last Name: ");
+            gender = ScannerUtil.scanGender("Gender (M/F): ");
+            dateOfBirth = Date.valueOf(ScannerUtil.scanDate("Date of Birth (YYYY-MM-DD): "));
+            nid = String.valueOf(ScannerUtil.scanNid("National ID: "));
+            employment = ScannerUtil.scanText("Employment status: ");
+            incomeSource = ScannerUtil.scanText("Income Source: ");
+            phoneNumber = ScannerUtil.scanPhoneNumber("Phone Number: ");
+            // End Part I
 
-
-            System.out.print("Last Name: ");
-            last_Name = ScannerUtil.scanText();
-
-            System.out.print("Gender (M/F): ");
-            gender = ScannerUtil.scanGender();
-
-            System.out.print("Date of Birth (YYYY-MM-DD): ");
-            dateOfBirth = Date.valueOf(ScannerUtil.scanDate());
-
-            System.out.print("National ID: ");
-            nid = String.valueOf(ScannerUtil.scanNid());
-
-            System.out.print("Employment status: ");
-            employment = ScannerUtil.scanText();
-
-            System.out.print("Income Source: ");
-            incomeSource = ScannerUtil.scanText();
-
-            System.out.print("Phone Number: ");
-            phoneNumber = ScannerUtil.scanPhoneNumber();
-
+            // Address Information
             System.out.println("# Address Information");
-            System.out.print("District: ");
-            district = ScannerUtil.scanText();
+            district = ScannerUtil.scanText("District: ");
+            provinceCity = ScannerUtil.scanText("Province or City:");
+            street = ScannerUtil.scanText("Street: ");
+            house = ScannerUtil.scanText("House:");
+            // End Part II
 
-            System.out.print("Province or City: ");
-            provinceCity = ScannerUtil.scanText();
-
-            System.out.print("Street: ");
-            street = ScannerUtil.scanText();
-
-            System.out.print("House: ");
-            house = ScannerUtil.scanText();
-
+            //Confirmation
             System.out.println("You have completed the form.");
-            System.out.print("Do you confirm all information is correct? (y/n): ");
-            String confirm = ScannerUtil.scanYesNo();
+            String confirm = ScannerUtil.scanYesNo("Do you confirm all information is correct? (y/n): ");
 
             if (confirm.equalsIgnoreCase("y")) {
                 complete = true;
@@ -108,6 +87,7 @@ public class MainMenu {
         newCustomerCif.setHouse(house);
         newCustomerCif.setId(staff.getId());
 
+
         CustomerCifDao cifDao = new CustomerCifDaoImpl();
         cifDao.registerCif(newCustomerCif);
     }
@@ -115,8 +95,7 @@ public class MainMenu {
     private static void accountCreationMenu() {
         int OptionChose;
         Information.accountCreationInfo();
-        System.out.print("Choose Option:");
-        OptionChose = ScannerUtil.scanInt();
+        OptionChose = ScannerUtil.scanInt("Choose Option: ");
         switch (OptionChose) {
             case 1:
                 System.out.println(1);
@@ -143,8 +122,7 @@ public class MainMenu {
         System.out.printf("#Bank Officer:%s", LoginAuth.getInstance().getUserNameLogin());
         System.out.println();
         Information.mainMenuInfo();
-        System.out.print("Choose Option:");
-        OptionChose = ScannerUtil.scanInt();
+        OptionChose = ScannerUtil.scanInt("Choose Option:");
         switch (OptionChose) {
             case 1:
                 CifCreationMenu();
@@ -173,6 +151,24 @@ public class MainMenu {
             menu();
             break;
             case 4:
+                System.out.println("#CIF Remover");
+                int deleteCIF = ScannerUtil.scanInt("Enter CIF Number to delete :");
+                boolean deletedCIF;
+                String confirm = ScannerUtil.scanYesNo("Do you confirm to delete CIF? (y/n): ");
+
+                if (confirm.equalsIgnoreCase("y")) {
+                    deletedCIF = true;
+                    CustomerCifDao cifDao = new CustomerCifDaoImpl();
+                    cifDao.deleteCif(deleteCIF);
+                } else {
+                    deletedCIF = false;
+                    System.out.println(">Enter to return to main menu");
+                    ScannerUtil.PressEnter();
+                    menu();
+                }
+                break;
+
+            case 5:
                 StaffDao staffDao = new StaffDaoImpl();
                 Staff staff = staffDao.showStaffInformation();
                 System.out.println(staff);
@@ -180,7 +176,7 @@ public class MainMenu {
                 ScannerUtil.PressEnter();
                 menu();
                 break;
-            case 5:
+            case 6:
                 CloseAccount closeAccount = new CloseAccount();
                 System.out.println("#You have permission to close only SavingAccount Type");
                 boolean deleted = false;

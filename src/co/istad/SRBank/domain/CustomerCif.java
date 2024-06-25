@@ -18,7 +18,7 @@ public class CustomerCif {
     private String street;
     private String house;
     private LocalDate createOn;
-    private Staff id;
+    private int id;
 
     public CustomerCif() {
     }
@@ -127,11 +127,11 @@ public class CustomerCif {
         this.createOn = createOn;
     }
 
-    public Staff getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Staff id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -141,5 +141,25 @@ public class CustomerCif {
 
     public void cifId(int cifId) {
         this.cifId = cifId;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "cifId=" + cifId +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", gender=" + gender +
+                ", dob=" + dob +
+                ", nid='" + nid + '\'' +
+                ", employment='" + employment + '\'' +
+                ", sourceOfFund='" + sourceOfFund + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", district='" + district + '\'' +
+                ", provinceCity='" + provinceCity + '\'' +
+                ", street='" + street + '\'' +
+                ", house='" + house + '\'' +
+                ", createOn=" + createOn +
+                ", id=" + id;
     }
 }

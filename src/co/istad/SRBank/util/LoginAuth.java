@@ -1,6 +1,7 @@
 package co.istad.SRBank.util;
 
 import co.istad.SRBank.database.DbSingleton;
+import co.istad.SRBank.domain.Staff;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ public class LoginAuth {
     private final DbSingleton dbSingleton;
     private final Connection connection;
     private String UserName;
+    private int staffId;
 
     private LoginAuth() {
         dbSingleton = DbSingleton.getDbSingleton();
@@ -27,6 +29,9 @@ public class LoginAuth {
     public String getUserName() {
         return UserName;
     }
+    public int getStaffId() {
+        return staffId;
+    }
 
     public boolean loginAuthMainApplication(String username, String password) {
         String sql = "SELECT * FROM Staff WHERE username = ? AND password_hash = ? ";
@@ -37,6 +42,7 @@ public class LoginAuth {
             boolean result = resultSet.next();
             if (result) {
                 this.UserName = username;
+                this.staffId = resultSet.getInt("staff_id");
             }
             return result;
         } catch (SQLException e) {

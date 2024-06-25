@@ -3,6 +3,8 @@ package co.istad.SRBank.dao.impl;
 import co.istad.SRBank.dao.CustomerCifDao;
 import co.istad.SRBank.database.DbSingleton;
 import co.istad.SRBank.domain.CustomerCif;
+import co.istad.SRBank.util.LoginAuth;
+import co.istad.SRBank.util.MainMenu;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,16 +38,34 @@ public class CustomerCifDaoImpl implements CustomerCifDao {
             statement.setString(10, newCustomerCif.getProvinceCity());
             statement.setString(11, newCustomerCif.getStreet());
             statement.setString(12, newCustomerCif.getHouse());
-            statement.setInt(13, newCustomerCif.getId().getId());
+            statement.setInt(13, LoginAuth.getInstance().getStaffId());
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows > 0) {
-                System.out.println("Insert successful, " + affectedRows + " row(s) affected.");
+                System.out.println("CIF successfully created. " + affectedRows + " CIF(s) created by " + LoginAuth.getInstance().getUserName() + ".");
             } else {
-                System.out.println("Insert failed, no rows affected.");
+                System.out.println("CIF creation failed: No CIF was created.");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage()); // Consider using a logger
+        }
+    }
+
+
+    @Override
+    public void deleteCif(int cifForDelete) {
+        String sql = "DELETE FROM customer_cif WHERE cif_number = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, cifForDelete);
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("CIF successfully deleted. " + affectedRows + " CIF(s) removed by " + LoginAuth.getInstance().getUserName() + ".");
+            } else {
+                System.out.println("CIF removed failed: No CIF was removed.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

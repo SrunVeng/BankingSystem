@@ -5,8 +5,9 @@ public class Information {
         System.out.println("1. New Customer / Create New CIF");
         System.out.println("2. Existing Customer");
         System.out.println("3. View all accounts");
-        System.out.println("4. View your information");
-        System.out.println("5. Close account");
+        System.out.println("4. Remove CIF");
+        System.out.println("5. View your information");
+        System.out.println("6. Close account");
         System.out.println("0. Exit");
     }
 
