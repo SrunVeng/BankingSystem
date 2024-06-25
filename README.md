@@ -21,5 +21,6 @@ Before you begin, ensure you have met the following requirements:
 
 ### Explanation
 
-- **Database Setup**: Added a step to restore the database tables using `database.sql` 
+- **Database Setup**: Added a step to restore the database tables using `database.sql`
+- Accessing Staff Information: Query "SELECT * FROM staff" in the backup database file to view staff details. to Login ( Username, password )
 
